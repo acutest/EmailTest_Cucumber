@@ -5,7 +5,6 @@ import java.util.*;
 
 public class ReceiveMailUsingAuthentication {
 	private static final String SMTP_HOST_NAME = "outlook.office365.com";
-	private static final String SMTP_AUTH_USER = "username@domain.com";
 	private static final String SMTP_AUTH_PWD = "password";
 
 	public static void receiveMail(String emailFromAddress, String emailSubjectTxt, String emailInboxUser)
