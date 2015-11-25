@@ -2,10 +2,11 @@ package com.acutest.EmailTestPerfomance;
 
 import javax.mail.*;
 import java.util.*;
+import java.io.*;
 
 public class ReceiveMailUsingAuthentication {
 	private static final String SMTP_HOST_NAME = "outlook.office365.com";
-	private static final String SMTP_AUTH_PWD = "password";
+	
 
 	public static void receiveMail(String emailFromAddress, String emailSubjectTxt, String emailInboxUser)
 			throws Exception {
@@ -20,11 +21,14 @@ public class ReceiveMailUsingAuthentication {
 		String message = null;
 
 		Properties props = new Properties();
+		
 		props.setProperty("mail.store.protocol", "imaps");
 		try {
+			ReadPropertiesFile propFile = new ReadPropertiesFile();
+			
 			Session session = Session.getInstance(props, null);
 			Store store = session.getStore();
-			store.connect(SMTP_HOST_NAME, receiver, SMTP_AUTH_PWD);
+			store.connect(SMTP_HOST_NAME, receiver, propFile.getPassword());
 			Folder inbox = store.getFolder("INBOX");
 			inbox.open(Folder.READ_ONLY);
 

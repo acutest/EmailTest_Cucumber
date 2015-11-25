@@ -5,8 +5,6 @@ import java.util.*;
 
 public class SendMailUsingAuthentication {
 	private static final String SMTP_HOST_NAME = "smtp.office365.com"; 
-	private static final String SMTP_AUTH_USER = "username@domain.com";
-	private static final String SMTP_AUTH_PWD = "password";
 	
 	public void sendEmail(String emailMsgTxt, String emailSubjectTxt, String[] recipients, String from) throws Exception {
 		SendMailUsingAuthentication smtpMailSender = new SendMailUsingAuthentication();
@@ -25,10 +23,13 @@ public class SendMailUsingAuthentication {
 	    props.put("mail.smtp.port", 587);
 	    props.put("mail.smtp.host", SMTP_HOST_NAME);
 	    props.put("mail.smtp.auth", "true");
+	    
+	    ReadPropertiesFile propFile = new ReadPropertiesFile();
+	    
 	    Session session = Session.getInstance(props, new Authenticator() {
 	        @Override
 	        protected PasswordAuthentication getPasswordAuthentication() {
-	            return new PasswordAuthentication(SMTP_AUTH_USER,SMTP_AUTH_PWD);
+	            return new PasswordAuthentication(propFile.getUserName(),propFile.getPassword());
 	        }
 	    });
 		
